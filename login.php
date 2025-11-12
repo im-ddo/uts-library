@@ -1,6 +1,6 @@
 <?
 session_start();
-require_once "include/config.php";
+require_once "includes/config.php";
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ require_once "include/config.php";
                                     <div class="card-body">
                                         <form action="login.php" method="post">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="username" name="username" type="text" />
+                                                <input class="form-control" id="username" name="username" type="text" placeholder="username" />
                                                 <label for="username">Username</label>
                                             </div>
                                             <div class="form-floating mb-3">
