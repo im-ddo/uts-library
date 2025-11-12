@@ -1,0 +1,54 @@
+<?php
+// proteksi agar file tidak dapat diakses langsung
+if(!defined('MY_APP')) {
+    die('Akses langsung tidak diperbolehkan!');
+}
+
+$sql = "SELECT * FROM kategori ORDER BY id_kategori DESC";
+$result = $mysqli->query($sql);
+
+// jika query gagal, tampilkan error
+if(!$result){
+    die("QUERY Error: ". $mysqli->error);
+}
+?>
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Kategori</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Tambah Kategori</li>
+    </ol>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <a href="index.php?hal=tambah_kategori" class="btn btn-success mb-3">Tambah Kategori</a>
+
+            <table class="table table-striped table-bordered align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <td>No</td>
+                  <td>Nama Kategori</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                $no = 1; 
+                while ($row = $result->fetch_assoc()) : 
+                ?>
+                    <tr>
+                      <td><?php echo $no; ?></td>
+                      <td><?php echo $row['nama_kategori']; ?></td>
+                      <td>
+                        <a href="edit_kategori.php?id=<?php echo $row['id_kategori']; ?>" class="btn btn-warning btn-sm">Ubah</a>
+                      </td>
+                    </tr>
+                <?php 
+                    $no++; 
+                endwhile; 
+                ?>
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
