@@ -1,6 +1,34 @@
-<?
+<?php
 session_start();
 require_once "includes/config.php";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $hashed_password = md5($password);
+    $sql = "SELECT id_admin, username, nama_lengkap FROM admin WHERE username = ? AND password = ?";
+    if($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("ss", $username, $hashed_password);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if($stmt->num_rows == 1) {
+            $stmt->bind_result($admin_id, $admin_username, $admin_nama_lengkap);
+            $stmt->fetch();
+
+            $_SESSION['admin_logged_in'] = true;
+
+            $_SESSION['admin_id'] = $admin_id;
+            $_SESSION['admin_username'] = $admin_username;
+            $_SESSION['admin_nama_lengkap'] = $admin_nama_lengkap;
+
+            header("location: index.php");
+            exit;
+        } else {
+            $pesan = "Username atau password salah";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +53,9 @@ require_once "includes/config.php";
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
+                                    <?php if(!empty($pesan)) : ?>
+                                    <div class="alert alert-danger" role="alert"><?php echo $pesan?></div>
+                                    <?php endif ?>
                                         <form action="login.php" method="post">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="username" name="username" type="text" placeholder="username" />

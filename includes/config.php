@@ -3,7 +3,7 @@
 // user pass database
 $db_host = 'localhost';
 $db_user = 'root';
-$db_pass = 'root123'; 
+$db_pass = ''; 
 $db_name = 'db_perpustakaan';
 
 // membuat koneksi
