@@ -74,7 +74,7 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            <?php echo $_SESSION['admin_nama_lengkap'] ?>
         </div>
     </nav>
 </div>
