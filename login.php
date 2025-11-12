@@ -7,6 +7,8 @@ if(isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
+require_once "includes/config.php";
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $username = $_POST['username'];
     $password = $_POST['password'];
