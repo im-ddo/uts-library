@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   
     $cover_name = null;
     if (!empty($_FILES['cover']['name'])) {
-        $target_dir = "uploads/";
+        $target_dir = "uploads/buku/";
         if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
         $file_name = time() . "_" . basename($_FILES['cover']['name']);
         $target_file = $target_dir . $file_name;
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Tambah Buku</h1>
+    <h1 class="mt-4">Buku</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">Tambah Buku</li>
     </ol>

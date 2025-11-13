@@ -13,8 +13,6 @@ if(!$result){
     die("QUERY Error: ". $mysqli->error);
 }
 
-// === Query kategori per buku ===
-// kita butuh query untuk kategori, karena 1 buku bisa punya banyak kategori
 $kategori_per_buku = []; // deklarasi array
 
 $sql_kategori = "
@@ -64,12 +62,12 @@ if ($result_kategori) {
                       <td>
                           <div class="d-flex align-items-center">
                               <?php if (!empty($row['cover_buku'])) : ?>
-                                  <img src="uploads/<?php echo $row['cover_buku']; ?>" alt="Cover Buku" width="50" height="70" style="object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                                  <img src="uploads/buku/<?php echo $row['cover_buku']; ?>" alt="Cover Buku" width="50" height="70" style="object-fit: cover; border-radius: 5px; margin-right: 10px;">
                               <?php else : ?>
                                   <div style="width:50px; height:70px; background:#ddd; border-radius:5px; margin-right:10px; display:flex; align-items:center; justify-content:center; color:#999;">No<br>Cover</div>
                               <?php endif; ?>
                               <div>
-                                  <?php echo htmlspecialchars($row['judul']); ?>
+                                  <?php echo $row['judul']; ?>
                               </div>
                           </div>
                       </td>
@@ -84,10 +82,10 @@ if ($result_kategori) {
                           ?>
                       </td>
 
-                      <td><?php $row['penulis']; ?></td>
-                      <td><?php $row['penerbit']; ?></td>
-                      <td><?php $row['tahun_terbit']; ?></td>
-                      <td><?php $row['stok']; ?></td>
+                      <td><?php echo $row['penulis']; ?></td>
+                      <td><?php echo $row['penerbit']; ?></td>
+                      <td><?php echo $row['tahun_terbit']; ?></td>
+                      <td><?php echo $row['stok']; ?></td>
                       <td>
                         <a href="index.php?hal=ubah_buku&id=<?php echo $row['id_buku']; ?>" class="btn btn-warning btn-sm">Ubah</a>
                       </td>
