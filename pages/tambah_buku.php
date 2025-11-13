@@ -4,7 +4,6 @@ if (!defined('MY_APP')) {
     die('Akses langsung tidak diperbolehkan!');
 }
 
-// Pesan feedback
 $pesan = '';
 $pesan_error = '';
 
@@ -15,12 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $penerbit = $_POST['penerbit'] ?? '';
     $tahun_terbit = $_POST['tahun_terbit'] ?? '';
     $stok = $_POST['stok'] ?? '';
-    $kategori = isset($_POST['kategori']) ? $_POST['kategori'] : []; // array kategori
-
-    // Upload cover (boleh kosong)
+    $kategori = isset($_POST['kategori']) ? $_POST['kategori'] : [];
+  
     $cover_name = null;
     if (!empty($_FILES['cover']['name'])) {
-        $target_dir = "uploads/"; // pastikan foldernya ada
+        $target_dir = "uploads/";
         if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
         $file_name = time() . "_" . basename($_FILES['cover']['name']);
         $target_file = $target_dir . $file_name;
@@ -30,17 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Simpan buku ke tabel 'buku'
     $sql = "INSERT INTO buku (judul, penulis, penerbit, tahun_terbit, stok, cover_buku)
             VALUES (?, ?, ?, ?, ?, ?)";
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("ssssss", $judul, $penulis, $penerbit, $tahun_terbit, $stok, $cover_name);
 
         if ($stmt->execute()) {
-            $id_buku = $stmt->insert_id; // ambil id buku yang baru
+            $id_buku = $stmt->insert_id; 
             $stmt->close();
 
-            // Simpan relasi kategori (jika ada)
             if (!empty($kategori)) {
                 $sql_relasi = "INSERT INTO buku_kategori (id_buku, id_kategori) VALUES (?, ?)";
                 $stmt_relasi = $mysqli->prepare($sql_relasi);
@@ -51,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_relasi->close();
             }
 
-            $pesan = "Data buku berhasil disimpan.";
+            $pesan = "Data buku berhasil ditambakan.";
         } else {
-            $pesan_error = "Gagal menyimpan data buku: " . $mysqli->error;
+            $pesan_error = "Gagal menambahkan data buku: " . $mysqli->error;
         }
     }
 }
