@@ -40,7 +40,7 @@ if(!$result){
                       <td><?php echo $no; ?></td>
                       <td><?php echo $row['nama_kategori']; ?></td>
                       <td>
-                        <a href="index,php?hal=ubah_kategori&id=<?php echo $row['id_kategori']; ?>" class="btn btn-warning btn-sm">Ubah</a>
+                        <a href="index.php?hal=ubah_kategori&id=<?php echo $row['id_kategori']; ?>" class="btn btn-warning btn-sm">Ubah</a>
                       </td>
                     </tr>
                 <?php 

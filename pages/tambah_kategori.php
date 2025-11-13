@@ -4,14 +4,17 @@ if(!defined('MY_APP')) {
     die('Akses langsung tidak diperbolehkan!');
 }
 
+// tambahkan inisialisasi ini supaya tidak undefined
+$pesan = '';
+$pesan_error = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // jika ada metode POST jalankan kode ini
     $nama_kategori = $_POST['nama_kategori'];
 
     // Query
     $sql = "INSERT INTO kategori (nama_kategori) VALUES (?)";
-    $stmt = $mysqli->prepare($sql);
-    if ($stmt) {
+    if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $nama_kategori);
         if ($stmt->execute()) {
             $pesan = "Data kategori berhasil disimpan";
@@ -30,18 +33,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">Tambah Kategori</li>
     </ol>
-    
+
+    <?php if (!empty($pesan)) : ?>
+    <div class="alert alert-success" role="alert"><?php echo $pesan; ?></div>
+    <?php endif; ?>
+
+    <?php if (!empty($pesan_error)) : ?>
+    <div class="alert alert-danger" role="alert"><?php echo $pesan_error; ?></div>
+    <?php endif; ?>
+
     <div class="card mb-4">
         <div class="card-body">
             <form method="post">
-            <div class="mb-3">
-                <label for="nama_kategori" class="form-label">Nama Kategori</label>
-                <input type="text" name="nama_kategori" class="form-control" id="nama_kategori" required>
-            </div>
+                <div class="mb-3">
+                    <label for="nama_kategori" class="form-label">Nama Kategori</label>
+                    <input type="text" name="nama_kategori" class="form-control" id="nama_kategori" required>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="index.php?hal=daftar_kategori" class="btn btn-danger">Batal</a>
-        </form>  
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="index.php?hal=daftar_kategori" class="btn btn-danger">Kembali</a>
+            </form>  
         </div>
     </div>
 </div>
