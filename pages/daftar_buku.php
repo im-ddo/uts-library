@@ -39,7 +39,7 @@ if ($result_kategori) {
     
     <div class="card mb-4">
         <div class="card-body">
-            <a href="index.php?hal=tambah_kategori" class="btn btn-success mb-3">Tambah Buku</a>
+            <a href="index.php?hal=tambah_buku" class="btn btn-success mb-3">Tambah Buku</a>
 
             <table class="table table-striped table-bordered align-middle">
               <thead class="table-dark">
