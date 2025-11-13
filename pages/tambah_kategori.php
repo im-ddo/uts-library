@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $nama_kategori);
         if ($stmt->execute()) {
-            $pesan = "Data kategori berhasil disimpan";
+            $pesan = "Data kategori berhasil ditambahkan";
         } else {
-            $pesan_error = "Terjadi kesalahan saat menyimpan data";
+            $pesan_error = "Terjadi kesalahan saat menambah data";
         }
         $stmt->close();
     }
